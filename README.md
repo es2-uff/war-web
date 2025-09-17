@@ -32,7 +32,6 @@ To get started with the project, follow these steps:
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd war-game-landing
    ```
 
 2. **Install dependencies:**

@@ -12,10 +12,21 @@ const Landing = () => {
 
   return (
     <div className="landing-container">
-      <div className="content-box" style={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'center', height:'80vh'}}>
-        <h1 className="title">WAR</h1>
+      <div className="content-box" style={{display:'flex', flexDirection:'column', justifyContent: 'space-between', alignItems:'center', height:'80vh'}}>
+        <div style={{display:'flex', alignItems:'center', width:'100%', justifyContent:'center', gap:'1rem', marginBottom:'1rem', position:'relative'}}>
+          <h1 className="title" style={{marginBottom:0, marginLeft: showSalas ? '0' : 'auto', marginRight: showSalas ? '0' : 'auto'}}>WAR</h1>
+          {showSalas ? (
+            <span
+              className="retornar-link"
+              style={{position:'absolute', left:'0', cursor:'pointer', fontSize:'1.1rem', color:'#ff3b3b', textShadow:'0 0 8px #b30000', fontWeight:'bold', padding:'0.5rem 1rem', borderRadius:'5px', transition:'box-shadow 0.3s', textDecoration:'underline'}}
+              onClick={() => setShowSalas(false)}
+              onMouseOver={e => e.currentTarget.style.boxShadow = '0 0 12px #ff3b3b'}
+              onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+            >Retornar</span>
+          ) : null}
+        </div>
         {!showSalas ? (
-          <div className="buttons-container" style={{marginTop:'2rem'}}>
+          <div className="buttons-container" style={{marginTop:'2rem', marginBottom:'10vh'}}>
             <button className="game-button" onClick={() => setShowSalas(true)}>Play Now</button>
             <button className="game-button">How To Play</button>
             <button className="game-button">About</button>
@@ -27,7 +38,7 @@ const Landing = () => {
               <button className="game-button" style={{width:'60%'}}>Criar Sala</button>
             </div>
             <div style={{width:'50%', padding:'2rem', display:'flex', flexDirection:'column', height:'100%'}}>
-              <h2 style={{marginBottom:'1rem'}}>Juntar-se a uma sala</h2>
+              <h2 style={{marginBottom:'1rem', color: '#ff3b3b'}}>Juntar-se a uma sala</h2>
               <ul style={{listStyle:'none', padding:0}}>
                 {mockSalas.map((sala, idx) => (
                   <li key={idx} style={{marginBottom:'1rem', padding:'1rem', border:'1px solid #ddd', borderRadius:'8px', display:'flex', justifyContent:'space-between', alignItems:'center', background:'rgba(255,255,255,0.07)'}}>

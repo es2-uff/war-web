@@ -14,13 +14,7 @@ war-game-landing
 │   │       ├── global.css
 │   │       └── landing.css
 │   ├── components
-│   │   ├── Header.jsx
-│   │   ├── Hero.jsx
-│   │   ├── Features.jsx
-│   │   ├── GamePreview.jsx
-│   │   ├── Testimonials.jsx
-│   │   ├── CallToAction.jsx
-│   │   └── Footer.jsx
+│   │   └── Landing.jsx
 │   ├── App.jsx
 │   └── main.jsx
 ├── public
@@ -57,20 +51,12 @@ To get started with the project, follow these steps:
 ## Features
 
 - **Responsive Design:** The landing page is designed to be fully responsive, ensuring a great experience on both desktop and mobile devices.
-- **Catchy Hero Section:** The hero section features a catchy tagline and an engaging background image.
-- **Game Features:** Showcase the key features of the War game in an attractive layout.
-- **User Testimonials:** Display reviews and testimonials from players to build trust and credibility.
-- **Call to Action:** Encourage users to take action, such as signing up or downloading the game.
 
 ## Technologies Used
 
 - React
 - Vite
 - CSS
-
-## Contributing
-
-Contributions are welcome! If you have suggestions for improvements or new features, feel free to open an issue or submit a pull request.
 
 ## License
 

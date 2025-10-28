@@ -47,6 +47,7 @@ const Landing = () => {
           <button className="game-button">How To Play</button>
           <button className="game-button">About</button>
           <button className="game-button">Contact</button>
+          {/* Dev-only adjacency editor button intentionally excluded from this push */}
         </div>
       </div>
     </div>

@@ -1,0 +1,252 @@
+{
+  "AfricaDoSul": [
+    "Sudao",
+    "Congo",
+    "Madagascar"
+  ],
+  "Alasca": [
+    "Mackenzie",
+    "Vancouver",
+    "Vladivostok"
+  ],
+  "Alemanha": [
+    "Inglaterra",
+    "FrancaProtugalEspanhaItalia",
+    "PoloniaIugoslavia",
+    "Suecia"
+  ],
+  "Aral": [
+    "China",
+    "India",
+    "OrienteMedio",
+    "Omsk",
+    "Moscou"
+  ],
+  "ArgeliaNigeria": [
+    "Brasil",
+    "Egito",
+    "Sudao",
+    "FrancaProtugalEspanhaItalia",
+    "Congo"
+  ],
+  "ArgentinaBolivia": [
+    "Brasil",
+    "PeruBoliviaChile"
+  ],
+  "Australia": [
+    "NovaGuine",
+    "Borneu",
+    "Sumatra"
+  ],
+  "Borneu": [
+    "Australia",
+    "Vietna",
+    "NovaGuine"
+  ],
+  "Brasil": [
+    "ArgeliaNigeria",
+    "VenezuelaColombia",
+    "PeruBoliviaChile",
+    "ArgentinaBolivia",
+    "PoloniaIugoslavia"
+  ],
+  "California": [
+    "Vancouver",
+    "Ottawa",
+    "NovaYork",
+    "Labrador",
+    "Mexico"
+  ],
+  "China": [
+    "Japao",
+    "Vladivostok",
+    "Tchita",
+    "Mongolia",
+    "Vietna",
+    "India",
+    "Aral",
+    "Omsk"
+  ],
+  "Congo": [
+    "Sudao",
+    "AfricaDoSul",
+    "ArgeliaNigeria"
+  ],
+  "Dudinka": [
+    "Siberia",
+    "Omsk",
+    "Tchita",
+    "Mongolia"
+  ],
+  "Egito": [
+    "ArgeliaNigeria",
+    "Sudao",
+    "OrienteMedio",
+    "FrancaProtugalEspanhaItalia",
+    "PoloniaIugoslavia"
+  ],
+  "FrancaProtugalEspanhaItalia": [
+    "ArgeliaNigeria",
+    "Egito",
+    "Inglaterra",
+    "Alemanha",
+    "PoloniaIugoslavia"
+  ],
+  "Groenlandia": [
+    "Islandia",
+    "Mackenzie",
+    "Labrador"
+  ],
+  "India": [
+    "Sumatra",
+    "China",
+    "Aral",
+    "OrienteMedio",
+    "Vietna"
+  ],
+  "Inglaterra": [
+    "Islandia",
+    "Suecia",
+    "FrancaProtugalEspanhaItalia",
+    "Alemanha"
+  ],
+  "Islandia": [
+    "Groenlandia",
+    "Inglaterra"
+  ],
+  "Japao": [
+    "China",
+    "Vladivostok"
+  ],
+  "Labrador": [
+    "Groenlandia",
+    "Ottawa",
+    "NovaYork",
+    "California"
+  ],
+  "Mackenzie": [
+    "Groenlandia",
+    "Alasca",
+    "Vancouver",
+    "Ottawa"
+  ],
+  "Madagascar": [
+    "Sudao",
+    "AfricaDoSul"
+  ],
+  "Mexico": [
+    "California",
+    "NovaYork",
+    "VenezuelaColombia"
+  ],
+  "Mongolia": [
+    "China",
+    "Dudinka",
+    "Tchita",
+    "Omsk"
+  ],
+  "Moscou": [
+    "PoloniaIugoslavia",
+    "Aral",
+    "Suecia",
+    "Omsk",
+    "OrienteMedio"
+  ],
+  "NovaGuine": [
+    "Australia",
+    "Borneu"
+  ],
+  "NovaYork": [
+    "California",
+    "Labrador",
+    "Ottawa",
+    "Mexico"
+  ],
+  "Omsk": [
+    "China",
+    "Dudinka",
+    "Aral",
+    "Mongolia",
+    "Moscou"
+  ],
+  "OrienteMedio": [
+    "Egito",
+    "Sudao",
+    "PoloniaIugoslavia",
+    "Aral",
+    "Moscou",
+    "India"
+  ],
+  "Ottawa": [
+    "Mackenzie",
+    "Vancouver",
+    "Labrador",
+    "California",
+    "NovaYork"
+  ],
+  "PeruBoliviaChile": [
+    "Brasil",
+    "ArgentinaBolivia",
+    "VenezuelaColombia"
+  ],
+  "PoloniaIugoslavia": [
+    "Egito",
+    "Alemanha",
+    "FrancaProtugalEspanhaItalia",
+    "OrienteMedio",
+    "Moscou",
+    "Brasil"
+  ],
+  "Siberia": [
+    "Vladivostok",
+    "Tchita",
+    "Dudinka"
+  ],
+  "Sudao": [
+    "ArgeliaNigeria",
+    "Egito",
+    "OrienteMedio",
+    "Madagascar",
+    "Congo",
+    "AfricaDoSul"
+  ],
+  "Suecia": [
+    "Inglaterra",
+    "Alemanha",
+    "Moscou"
+  ],
+  "Sumatra": [
+    "Australia",
+    "India"
+  ],
+  "Tchita": [
+    "Vladivostok",
+    "China",
+    "Siberia",
+    "Dudinka",
+    "Mongolia"
+  ],
+  "Vancouver": [
+    "Mackenzie",
+    "Alasca",
+    "Ottawa",
+    "California"
+  ],
+  "VenezuelaColombia": [
+    "Mexico",
+    "Brasil",
+    "PeruBoliviaChile"
+  ],
+  "Vietna": [
+    "Borneu",
+    "China",
+    "India"
+  ],
+  "Vladivostok": [
+    "Alasca",
+    "Japao",
+    "Siberia",
+    "Tchita",
+    "China"
+  ]
+}

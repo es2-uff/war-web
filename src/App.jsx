@@ -12,6 +12,7 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route path="/play-options" component={PlayOptions} />
         <Route path="/sala" component={Sala} />
+        {/* adjacency editor route intentionally excluded from this push */}
       </Switch>
     </Router>
   );

@@ -4,9 +4,6 @@ node_modules/
 # Build output
 dist/
 
-# Exclude dev-only editor component
-src/components/AdjacencyEditor.jsx
-
 # Logs
 npm-debug.log*
 yarn-debug.log*

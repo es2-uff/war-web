@@ -4,7 +4,8 @@ import Landing from './components/Landing';
 import PlayOptions from './components/PlayOptions';
 import Sala from './components/Sala';
 import Game from './components/Game';
-import './assets/styles/global.css';
+
+export const API_URL = 'http://localhost:8080/api/v1'
 
 function App() {
   return (

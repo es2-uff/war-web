@@ -14,6 +14,24 @@ class AppService {
 				throw err
 			})
 	}
+
+	async GetAllRooms() {
+		return await axios
+			.get(API_URL + '/rooms/all')
+			.then((resp) => resp.data)
+			.catch((err) => {
+				throw err
+			})
+	}
+
+	async CreateRoom(roomName, ownerId) {
+		return await axios
+			.post(API_URL + '/rooms/new', { room_name: roomName, owner_id: ownerId })
+			.then((resp) => resp.data)
+			.catch((err) => {
+				throw err
+			})
+	}
 }
 
 export default new AppService()

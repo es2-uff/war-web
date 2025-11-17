@@ -1,189 +1,117 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
-const API_URL = 'http://localhost:8080/api/v1';
+import AppService from '../services/app.service';
 
 const PlayOptions = () => {
-  const history = useHistory();
-  const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [roomName, setRoomName] = useState('');
-  const [showCreateInput, setShowCreateInput] = useState(false);
-  const username = localStorage.getItem('username') || 'Guest';
+	const history = useHistory();
+	const [rooms, setRooms] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [roomName, setRoomName] = useState('');
+	const [showCreateInput, setShowCreateInput] = useState(false);
+	const username = localStorage.getItem('player_name') || 'Guest';
 
-  useEffect(() => {
-    fetchRooms();
-    const interval = setInterval(fetchRooms, 3000);
-    return () => clearInterval(interval);
-  }, []);
+	useEffect(() => {
+		fetchRooms();
+		const interval = setInterval(fetchRooms, 3000);
+		return () => clearInterval(interval);
+	}, []);
 
-  const fetchRooms = async () => {
-    try {
-      const response = await fetch(`${API_URL}/rooms/all`);
-      if (response.ok) {
-        const text = await response.text();
-        if (text) {
-          const data = JSON.parse(text);
-          setRooms(data || []);
-        } else {
-          setRooms([]);
-        }
-      } else {
-        console.error('Failed to fetch rooms:', response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error('Error fetching rooms:', error);
-    }
-  };
+	const fetchRooms = async () => {
+		try {
+			const data = await AppService.GetAllRooms();
+			setRooms(data || []);
+		} catch (error) {
+			console.error('Error fetching rooms:', error);
+			setRooms([]);
+		}
+	};
 
-  const createRoom = async () => {
-    if (!roomName.trim()) {
-      setShowCreateInput(true);
-      return;
-    }
+	const createRoom = async () => {
+		if (!roomName.trim()) {
+			setShowCreateInput(true);
+			return;
+		}
 
-    setLoading(true);
-    try {
-      const response = await fetch(`${API_URL}/rooms/new`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          room_name: roomName.trim(),
-          owner_name: username
-        })
-      });
+		setLoading(true);
+		try {
+			const playerId = localStorage.getItem('player_id');
+			if (!playerId) {
+				alert('Player ID not found. Please refresh and try again.');
+				return;
+			}
+			const room = await AppService.CreateRoom(roomName.trim(), playerId);
+			history.push(`/sala?room_id=${room.room_id}&owner_id=${playerId}&host=true`);
+		} catch (error) {
+			console.error('Error creating room:', error);
+			alert('Failed to create room. Please try again.');
+		} finally {
+			setLoading(false);
+		}
+	};
 
-      if (response.ok) {
-        const room = await response.json();
-        history.push(`/sala?room_id=${room.room_id}&owner_id=${room.owner_id}&host=true`);
-      }
-    } catch (error) {
-      console.error('Error creating room:', error);
-      alert('Failed to create room. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+	const joinRoom = (room) => {
+		history.push(`/sala?room_id=${room.room_id}&sala=${encodeURIComponent(room.room_name)}&host=false`);
+	};
 
-  const joinRoom = (room) => {
-    history.push(`/sala?room_id=${room.room_id}&sala=${encodeURIComponent(room.room_name)}&host=false`);
-  };
+	return (
+		<div className="min-h-screen w-full flex items-center justify-center p-4 bg-blue-100">
+			<div className="p-10 gap-y-4 rounded-2xl shadow-2xl flex flex-col justify-center items-center bg-white">
+				<h1 className="text-5xl font-bold">ES2 - WAR</h1>
 
-  return (
-    <div className="landing-container">
-      <div className="content-box" style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '80vh'
-      }}>
-        <h1 className="title">WAR</h1>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'stretch',
-          width: '100%',
-          marginTop: '3rem',
-          marginBottom: '3rem',
-          background: 'rgba(255,255,255,0.05)',
-          borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-        }}>
-          <div style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRight: '2px solid rgba(255,255,255,0.2)',
-            padding: '2rem'
-          }}>
-            <h2 style={{color:'#fff', marginBottom:'1.5rem', fontSize:'1.5rem'}}>Host Game</h2>
-            {showCreateInput && (
-              <input
-                type="text"
-                placeholder="Room name"
-                value={roomName}
-                onChange={(e) => setRoomName(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && createRoom()}
-                style={{
-                  width:'100%',
-                  padding:'0.8rem',
-                  marginBottom:'1rem',
-                  fontSize:'1rem',
-                  borderRadius:'8px',
-                  border:'2px solid #ff3b3b',
-                  background:'rgba(255,255,255,0.9)',
-                  outline:'none'
-                }}
-                autoFocus
-                maxLength={30}
-              />
-            )}
-            <button
-              className="game-button"
-              style={{width: '100%'}}
-              onClick={createRoom}
-              disabled={loading}
-            >
-              {loading ? 'Creating...' : 'Create Room'}
-            </button>
-          </div>
-          <div style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '2rem'
-          }}>
-            <h2 style={{color:'#fff', marginBottom:'1.5rem', fontSize:'1.5rem'}}>Join Session</h2>
-            <div style={{width:'100%', maxHeight:'300px', overflowY:'auto'}}>
-              {rooms.length === 0 ? (
-                <p style={{color:'#888', textAlign:'center'}}>No rooms available</p>
-              ) : (
-                <ul style={{listStyle:'none', padding:0, width:'100%'}}>
-                  {rooms.map((room) => (
-                    <li key={room.room_id} style={{
-                      marginBottom:'1rem',
-                      padding:'1rem',
-                      border:'1px solid #ddd',
-                      borderRadius:'8px',
-                      display:'flex',
-                      justifyContent:'space-between',
-                      alignItems:'center',
-                      background:'rgba(255,255,255,0.07)'
-                    }}>
-                      <div>
-                        <strong>{room.room_name}</strong>
-                        <div style={{color:'#888', fontSize:'0.9rem'}}>
-                          Host: {room.owner_name}
-                        </div>
-                      </div>
-                      <div style={{display:'flex', alignItems:'center', gap:'1rem'}}>
-                        <span>{room.player_count}/{room.max_players}</span>
-                        <button
-                          className="game-button"
-                          style={{padding:'0.5rem 1rem'}}
-                          onClick={() => joinRoom(room)}
-                          disabled={room.player_count >= room.max_players}
-                        >
-                          Join
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <span style={{fontSize:'0.9rem', color:'#888', marginTop:'1rem'}}>3-6 players per room</span>
-          </div>
-        </div>
-        <button className="game-button" style={{marginTop: '2rem'}} onClick={() => history.push('/')}>Back</button>
-      </div>
-    </div>
-  );
+					{/* Host Game Section */}
+					<div className="w-full flex justify-center items-center gap-x-3">
+						<h2 className="text-2xl font-semibold">Nova Sala</h2>
+						<input
+							type="text"
+							placeholder="Nome da sala"
+							onChange={(e) => setRoomName(e.target.value)}
+							className="w-6/12 px-4 py-2 rounded-lg border-2 border-red-500 bg-white/90"
+						/>
+						<button
+							className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg"
+							onClick={createRoom}
+							disabled={loading}
+						>
+							{loading ? '...' : '>'}
+						</button>
+					</div>
+
+					<hr className="w-full border-t-2 border-gray-300 my-2"/>
+
+					{/* Join Session Section */}
+					<div className="flex flex-col items-center w-full">
+						<h2 className="text-2xl font-semibold mb-6">Salas Disponiveis</h2>
+						<div className="w-full overflow-y-auto pr-2" >
+							{rooms.length === 0 ? (
+								<p className="text-gray-400 text-center">Nenhuma sala disponível</p>
+							) : (
+								<ul className="space-y-4 w-full">
+									{rooms.map((room) => (
+										<li 
+											key={room.room_id} 
+											className="w-full p-4 border border-gray-300/20 rounded-lg flex justify-between items-center bg-white/10 hover:bg-white/15" 
+										>
+											<div>
+												<div className="font-bold text-lg">{room.room_name}</div>
+												<div className="text-gray-600 text-sm">
+													Host: {room.owner_name}
+												</div>
+											</div>
+											<button
+												className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg"
+												onClick={() => joinRoom(room)}
+											>
+												Entrar
+											</button>
+										</li>
+									))}
+								</ul>
+							)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default PlayOptions;

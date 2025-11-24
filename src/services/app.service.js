@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { API_URL } from '../App'
 
-const WS_URL = 'ws://localhost:8080/ws'
+const ROOM_WS_URL = 'ws://localhost:8080/api/v1/rooms/ws'
+const GAME_WS_URL = 'ws://localhost:8080/api/v1/games/ws'
 
 class AppService {
 	getCurrentUser() {
@@ -44,8 +45,8 @@ class AppService {
 			})
 	}
 
-	connectToRoomWebSocket(roomId, username, isHost, ownerId) {
-		const wsUrl = `${WS_URL}?room_id=${roomId}&username=${encodeURIComponent(username)}${isHost && ownerId ? `&owner_id=${ownerId}` : ''}`
+	connectToRoomWebSocket(roomId, userId) {
+		const wsUrl = `${ROOM_WS_URL}?room_id=${roomId}&user_id=${userId}`
 		return new WebSocket(wsUrl)
 	}
 
@@ -60,12 +61,15 @@ class AppService {
 	}
 
 	sendStartGame(ws, playerId) {
-		if (ws && ws.readyState === WebSocket.OPEN) {
-			ws.send(JSON.stringify({
-				type: 'start_game',
-				player_id: playerId
-			}))
-		}
+		ws.send(JSON.stringify({
+			type: 'start_game',
+			player_id: playerId
+		}))
+	}
+
+	connectToGameWebSocket(roomId, userId) {
+		const wsUrl = `${GAME_WS_URL}?room_id=${roomId}&user_id=${userId}`
+		return new WebSocket(wsUrl)
 	}
 }
 

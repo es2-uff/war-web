@@ -6,15 +6,8 @@ import TradeCards from '../molecules/trade-cards';
 
 const GameControls = ({ selectedTerritory, territories, expandedSection, setExpandedSection }) => {
 	return (
-		<div style={{
-			background: 'linear-gradient(180deg, rgba(20,20,30,0.95) 0%, rgba(10,10,20,0.95) 100%)',
-			padding: '1rem',
-			overflowY: 'auto',
-			borderLeft: '2px solid rgba(100,150,255,0.3)',
-			boxShadow: 'inset 5px 0 15px rgba(0,0,0,0.3)',
-			height: '100vh'
-		}}>
-			<h2 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.8rem' }}>
+		<div className="w-2/12 h-screen overflow-y-auto p-4 bg-gradient-to-b from-[rgba(20,20,30,0.95)] to-[rgba(10,10,20,0.95)] border-l-2 border-[rgba(100,150,255,0.3)] shadow-[inset_5px_0_15px_rgba(0,0,0,0.3)]">
+			<h2 className="text-white text-[1.1rem] mb-3.5">
 				Controles
 			</h2>
 

@@ -1,34 +1,44 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { getTerritories } from '../../data/territories';
 
 const GameMap = ({ gameState, selectedTerritory, onTerritoryClick }) => {
 	const playerIds = Object.keys(gameState.players);
-	const territories = getTerritories(playerIds);
+	const territories = gameState.territories;
+	const territoriesData = getTerritories(playerIds);
+	const containerRef = useRef(null);
+	const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+	useEffect(() => {
+		const updateSize = () => {
+			if (containerRef.current) {
+				setContainerSize({
+					width: containerRef.current.offsetWidth,
+					height: containerRef.current.offsetHeight
+				});
+			}
+		};
+
+		updateSize();
+		window.addEventListener('resize', updateSize);
+		return () => window.removeEventListener('resize', updateSize);
+	}, []);
+
+	const territoriesMap = territoriesData.reduce((acc, territory) => {
+		acc[territory.name] = territory;
+		return acc;
+	}, {});
+
+	console.log('Game State Territories:', gameState.territories);
 
 	return (
-		<div style={{
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
-			padding: '2rem',
-			overflowY: 'auto'
-		}}>
-			<div style={{
-				position: 'relative',
-				width: '100%',
-				maxWidth: '100%'
-			}}>
-				<img
-					src="/brasil.jpg"
-					alt="World Map"
-					style={{
-						width: '100%',
-						height: 'auto',
-						display: 'block'
-					}}
-				/>
+		<div ref={containerRef} className="h-4/5 w-full relative overflow-hidden">
+			<img
+				src="/world-resize.jpeg"
+				alt="World Map"
+				className="absolute inset-0 w-full h-full object-fit"
+			/>
 
-				{/* Territory buttons */}
+			<div id="button-overlay" className="absolute w-full h-full pointer-events-none">
 				{territories.map((territory) => {
 					const owner = territory.owner ? gameState.players[territory.owner] : null;
 					const baseColor = owner ? owner.color : '#666666';
@@ -38,58 +48,37 @@ const GameMap = ({ gameState, selectedTerritory, onTerritoryClick }) => {
 					const hoverColor = owner ? owner.color : '#888888';
 					const isSelected = selectedTerritory === territory.id;
 
+					// Get territory data with fallback (lookup by name since IDs are UUIDs)
+					const territoryData = territoriesMap[territory.name];
+					if (!territoryData) {
+						console.warn(`Territory "${territory.name}" not found in territoriesMap`);
+						return null; // Skip rendering if no data
+					}
+
 					return (
 						<div
 							key={territory.id}
-							style={{
-								position: 'absolute',
-								left: `${territory.x}%`,
-								top: `${territory.y}%`,
-								transform: 'translate(-50%, -50%)',
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center',
-								zIndex: 10
-							}}
+							className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+							style={{ left: `${territoryData.x}%`, top: `${territoryData.y}%` }}
 						>
 							<button
 								onClick={() => onTerritoryClick(territory.id)}
+								className={`
+									w-[35px] h-[35px] rounded-full flex items-center justify-center
+									cursor-pointer transition-all duration-200 ease-in-out
+									text-white font-bold text-sm [text-shadow:_1px_1px_2px_rgba(0,0,0,0.8)]
+									bg-[var(--bg-color)]
+									${isSelected
+										? 'border-4 border-[#FFD700] scale-110 shadow-[0_0_12px_rgba(255,215,0,0.8)]'
+										: 'border-[3px] border-white/90 scale-100 shadow-[0_2px_4px_rgba(0,0,0,0.3)] hover:scale-[1.15] hover:border-white hover:shadow-[0_4px_8px_rgba(0,0,0,0.5)] hover:bg-[var(--hover-color)]'
+									}
+								`}
 								style={{
-									width: '35px',
-									height: '35px',
-									borderRadius: '50%',
-									border: isSelected ? '4px solid #FFD700' : '3px solid rgba(255, 255, 255, 0.9)',
-									background: rgbaColor,
-									cursor: 'pointer',
-									transition: 'all 0.2s ease',
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									color: '#fff',
-									fontWeight: 'bold',
-									fontSize: '14px',
-									textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-									boxShadow: isSelected ? '0 0 12px rgba(255, 215, 0, 0.8)' : '0 2px 4px rgba(0,0,0,0.3)',
-									transform: isSelected ? 'scale(1.1)' : 'scale(1)'
-								}}
-								onMouseEnter={(e) => {
-									if (!isSelected) {
-										e.currentTarget.style.background = hoverColor;
-										e.currentTarget.style.transform = 'scale(1.15)';
-										e.currentTarget.style.border = '3px solid rgba(255, 255, 255, 1)';
-										e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.5)';
-									}
-								}}
-								onMouseLeave={(e) => {
-									if (!isSelected) {
-										e.currentTarget.style.background = rgbaColor;
-										e.currentTarget.style.transform = 'scale(1)';
-										e.currentTarget.style.border = '3px solid rgba(255, 255, 255, 0.9)';
-										e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-									}
+									'--bg-color': rgbaColor,
+									'--hover-color': hoverColor,
 								}}
 							>
-								{territory.troops}
+								{territory.armies}
 							</button>
 						</div>
 					);

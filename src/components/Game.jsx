@@ -5,6 +5,7 @@ import useGameWebSocket from '../hooks/useGameWebSocket';
 import GameMap from './organisms/game-map';
 import GameControls from './organisms/game-controls';
 import GameInfoSidebar from './organisms/game-info-sidebar';
+import GameLog from './organisms/game-log';
 import { getTerritories } from '../data/territories';
 
 function useQuery() {
@@ -51,7 +52,7 @@ const Game = () => {
 	const territories = getTerritories(playerIds);
 
 	return (
-		<div className="landing-container grid grid-cols-[300px_1fr_300px] h-screen gap-0 p-0 overflow-hidden">
+		<div className="w-full flex h-screen p-0 overflow-hidden">
 			<GameInfoSidebar
 				userId={userId}
 				players={players}
@@ -59,11 +60,15 @@ const Game = () => {
 				phaseTranslations={phaseTranslations}
 			/>
 
-			<GameMap
-				gameState={gameState}
-				selectedTerritory={selectedTerritory}
-				onTerritoryClick={handleTerritoryClick}
-			/>
+			<div className="w-8/12 h-full">
+				<GameMap
+					gameState={gameState}
+					selectedTerritory={selectedTerritory}
+					onTerritoryClick={handleTerritoryClick}
+				/>
+
+				<GameLog />
+			</div>
 
 			<GameControls
 				selectedTerritory={selectedTerritory}

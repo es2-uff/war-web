@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlayerList = ({ players }) => {
+const PlayerList = ({ players, playerId }) => {
     return (
         <ul className="space-y-2 mb-8">
             {players.map((player) => (

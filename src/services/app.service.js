@@ -71,6 +71,15 @@ class AppService {
 		const wsUrl = `${GAME_WS_URL}?room_id=${roomId}&user_id=${userId}`
 		return new WebSocket(wsUrl)
 	}
+
+	async sendFinishTurn(ws, playerId) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'finish_turn',
+				player_id: playerId,
+			}))
+		}
+	}
 }
 
 export default new AppService()

@@ -1,7 +1,6 @@
 import React from 'react';
 
-const DistributeTroops = ({ selectedTerritory, territories, isExpanded, onToggle }) => {
-	const selectedTerritoryData = selectedTerritory !== null ? territories.find(t => t.id === selectedTerritory) : null;
+const DistributeTroops = ({ selectedTerritory, isExpanded, onToggle }) => {
 
 	return (
 		<div style={{
@@ -32,7 +31,7 @@ const DistributeTroops = ({ selectedTerritory, territories, isExpanded, onToggle
 					▼
 				</span>
 			</div>
-			{isExpanded && (
+			{isExpanded && selectedTerritory != null && (
 				<div style={{ padding: '0 0.75rem 0.75rem 0.75rem' }}>
 					<div style={{ marginBottom: '0.5rem' }}>
 						<label style={{ color: '#aaa', fontSize: '0.8rem', display: 'block', marginBottom: '0.2rem' }}>
@@ -48,7 +47,7 @@ const DistributeTroops = ({ selectedTerritory, territories, isExpanded, onToggle
 							fontSize: '0.85rem',
 							boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.5)'
 						}}>
-							{selectedTerritoryData?.name || 'Clique em um território no mapa'}
+							{selectedTerritory?.name || 'Clique em um território no mapa'}
 						</div>
 					</div>
 					<div style={{

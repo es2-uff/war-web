@@ -1,7 +1,6 @@
 import React from 'react';
 import PlayersList from '../molecules/players-list';
 import CurrentTurnInfo from '../molecules/current-turn-info';
-import GamePhaseInfo from '../molecules/game-phase-info';
 import ObjectiveInfo from '../molecules/objective-info';
 
 const GameInfoSidebar = ({ userId, players, gameState, phaseTranslations }) => {
@@ -15,11 +14,6 @@ const GameInfoSidebar = ({ userId, players, gameState, phaseTranslations }) => {
 			<CurrentTurnInfo
 				players={gameState.players}
 				currentTurn={gameState.current_turn}
-			/>
-
-			<GamePhaseInfo
-				phase={gameState.phase}
-				phaseTranslations={phaseTranslations}
 			/>
 
 			<ObjectiveInfo 

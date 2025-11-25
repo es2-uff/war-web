@@ -3,18 +3,11 @@ import React from 'react';
 const ObjectiveInfo = ({ objectiveDesc }) => {
 
 	return (
-		<div style={{
-			marginTop: '1.5rem',
-			padding: '1rem',
-			background: 'linear-gradient(135deg, rgba(2,5,180,0.3) 0%, rgba(2,5,180,0.2) 100%)',
-			border: '2px solid rgba(255,180,0,0.6)',
-			borderRadius: '12px',
-			boxShadow: '0 4px 12px rgba(2,5,180,0.3), inset 0 1px 0 rgba(255,255,255,0.2)'
-		}}>
-			<div style={{ color: '#ffd700', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-				Turno Atual:
+		<div className="mt-6 p-4 bg-gradient-to-br from-purple-900/40 to-purple-950/30 border-2 border-purple-400/50 rounded-xl shadow-[0_4px_12px_rgba(147,51,234,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]">
+			<div className="text-purple-300 font-bold mb-2 text-sm">
+				Objetivo:
 			</div>
-			<div style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600' }}>
+			<div className="text-white text-base font-semibold leading-relaxed">
 				{ objectiveDesc }
 			</div>
 		</div>

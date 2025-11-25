@@ -4,6 +4,7 @@ import AppService from '../services/app.service';
 import useGameWebSocket from '../hooks/useGameWebSocket';
 import GameMap from './organisms/game-map';
 import GameControls from './organisms/game-controls';
+import TurnControls from './organisms/turn-controls';
 import GameInfoSidebar from './organisms/game-info-sidebar';
 import GameLog from './organisms/game-log';
 import { getTerritories } from '../data/territories';
@@ -32,9 +33,9 @@ const Game = () => {
 
 	const { connected, ws } = useGameWebSocket(roomId, userId, setGameState);
 
-	const handleTerritoryClick = (territoryId) => {
-		console.log('Territory clicked:', territoryId);
-		setSelectedTerritory(territoryId);
+	const handleTerritoryClick = (territory) => {
+		console.log('Territory clicked:', territory);
+		setSelectedTerritory(territory);
 	};
 
 	if (!gameState || !connected) {
@@ -49,7 +50,7 @@ const Game = () => {
 
 	const players = Object.values(gameState.players);
 	const playerIds = Object.keys(gameState.players);
-	const territories = getTerritories(playerIds);
+	const territories = getTerritories(gameState.territories);
 
 	return (
 		<div className="w-full flex h-screen p-0 overflow-hidden">
@@ -60,12 +61,14 @@ const Game = () => {
 				phaseTranslations={phaseTranslations}
 			/>
 
-			<div className="w-8/12 h-full">
+			<div className="relative w-8/12 h-full">
 				<GameMap
-					gameState={gameState}
+					territories={territories}
 					selectedTerritory={selectedTerritory}
 					onTerritoryClick={handleTerritoryClick}
 				/>
+
+				<TurnControls />
 
 				<GameLog />
 			</div>

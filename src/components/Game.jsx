@@ -25,15 +25,21 @@ const Game = () => {
 	const [turnState, setTurnState] = useState(0);
 
 	const [currentTurn, setCurrentTurn] = useState(null);
+
+	const [territories, setTerritories] = useState(null);
 	const [selectedTerritory, setSelectedTerritory] = useState(null);
 	const [expandedSection, setExpandedSection] = useState(null);
 
 	const { connected, ws } = useGameWebSocket(roomId, userId, setGameState);
 
 	useEffect(() => {
-		if (gameState != null && currentTurn != gameState.current_turn) {
-			setCurrentTurn(gameState.current_turn);
-			setTurnState(0);
+		if (gameState != null){
+			setTerritories(getTerritories(gameState.territories));
+
+			if(currentTurn != gameState.current_turn) {
+				setCurrentTurn(gameState.current_turn);
+				setTurnState(0);
+			}
 		}
 	}, [gameState]);
 
@@ -42,15 +48,15 @@ const Game = () => {
 	};
 
 	const handleDeployTroops = () => {
-		setTurnState(1)
+		setTurnState(0)
 	};
 
 	const  handleAttackTerritory = () => {
-		setTurnState(2)
+		setTurnState(1)
 	};
 
 	const  handleMoveTroops = () => {
-		setTurnState(3)
+		setTurnState(2)
 	};
 
 	const handleFinishTurn = async (territory) => {
@@ -70,7 +76,6 @@ const Game = () => {
 
 	const players = Object.values(gameState.players);
 	const playerIds = Object.keys(gameState.players);
-	const territories = getTerritories(gameState.territories);
 
 	return (
 		<div className="w-full flex h-screen p-0 overflow-hidden">

@@ -3,6 +3,10 @@ import { getTerritories } from '../../data/territories';
 import MapButton from '../atoms/map-button';
 
 const GameMap = ({ territories, selectedTerritory, onTerritoryClick }) => {
+	if(!territories){
+		return(<></>);
+	}
+
 	return (
 		<div className="h-4/5 w-full relative overflow-hidden">
 			<img

@@ -21,7 +21,7 @@ const Game = () => {
 	const [gameState, setGameState] = useState(null);
 
 	// Turn -1: All Deploy | Turn 0: Deploy | Turn 1: Attack | Turn 2: Move | Turn 3: Finish
-	const [turnState, setTurnState] = useState(-1);
+	const [turnState, setTurnState] = useState(0);
 
 	const [currentTurn, setCurrentTurn] = useState(null);
 
@@ -34,9 +34,7 @@ const Game = () => {
 		if (gameState != null){
 			setTerritories(getTerritories(gameState.territories));
 
-			if(gameState.current_turn == 'ALL'){
-				return;
-			}
+			console.log(currentTurn);
 
 			if(currentTurn != gameState.current_turn) {
 				setCurrentTurn(gameState.current_turn);
@@ -70,12 +68,6 @@ const Game = () => {
 
 	const handleFinishTurn = async (territory) => {
 		if (!ws.current) return;
-		if (turnState === -1) {
-			await AppService.sendFinishInitialDeployment(ws.current, userId);
-			setCurrentTurn("");
-			setTurnState(0);
-			return;
-		}
 		await AppService.sendFinishTurn(ws.current, userId);
 	};
 

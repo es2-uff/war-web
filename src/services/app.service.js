@@ -80,6 +80,15 @@ class AppService {
 			}))
 		}
 	}
+
+	async sendFinishInitialDeployment(ws, playerId) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'finish_initial_deployment',
+				player_id: playerId,
+			}))
+		}
+	}
 }
 
 export default new AppService()

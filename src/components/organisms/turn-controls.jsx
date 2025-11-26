@@ -8,12 +8,12 @@ const TurnControls = ({  handleDeployTroops, handleFinishTurn, handleAttackTerri
 
 	return (
 		<div className="absolute left-1/2 -translate-x-1/2 px-6 py-3 flex items-center justify-center bottom-38.5 gap-x-4 bg-gradient-to-b from-[rgba(20,20,30,0.95)] to-[rgba(10,10,20,0.95)] rounded-t-2xl">
-			{isMyTurn ? (
+			{isMyTurn || turnState === -1 ? (
 				<>
-					<TurnDeployButton handleDeployTroops={handleDeployTroops} turnState={turnState} isMyTurn={isMyTurn} />
-					<TurnAttackButton handleAttackTerritory={handleAttackTerritory} turnState={turnState} isMyTurn={isMyTurn} />
-					<TurnMoveButton handleMoveTroops={handleMoveTroops} turnState={turnState} isMyTurn={isMyTurn} />
-					<TurnFinishButton handleFinishTurn={handleFinishTurn} turnState={turnState} isMyTurn={isMyTurn} />
+					<TurnDeployButton turnState={turnState} />
+					<TurnAttackButton handleAttackTerritory={handleAttackTerritory} turnState={turnState} />
+					<TurnMoveButton handleMoveTroops={handleMoveTroops} turnState={turnState} />
+					<TurnFinishButton handleFinishTurn={handleFinishTurn} turnState={turnState} />
 				</>
 			) : (
 				<span className="text-white/50 text-sm">Aguardando turno...</span>

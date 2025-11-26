@@ -15,9 +15,6 @@ const GameLog = () => {
 
 	return (
 		<div className="h-1/5 p-4 bg-gradient-to-b from-[rgba(20,20,30,0.95)] to-[rgba(10,10,20,0.95)] border-l-2 border-[rgba(100,150,255,0.3)] shadow-[inset_5px_0_15px_rgba(0,0,0,0.3)]">
-			<h2 className="text-white text-[1.1rem] mb-3.5">
-				Registro do Jogo
-			</h2>
 
 			<div className="font-mono text-sm text-gray-300 space-y-1">
 				{logLines.map((line, index) => (

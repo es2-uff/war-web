@@ -3,8 +3,8 @@ import React from 'react';
 const MapButton = ({ territory, isSelected, onClick }) => {
 	const baseColor = territory.owner_color;
 	const rgbaColor = baseColor.startsWith('#')
-		? `${baseColor}CC` // Add alpha to hex
-		: baseColor.replace(')', ', 0.8)').replace('rgb', 'rgba');
+		? `${baseColor}` // Add alpha to hex
+		: baseColor.replace(')', ', 1)').replace('rgb', 'rgba');
 	const hoverColor = territory.owner_color;
 
 

@@ -89,6 +89,16 @@ class AppService {
 			}))
 		}
 	}
+
+	async sendTroopAssign(ws, playerId, territoryId) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'troop_assign',
+				player_id: playerId,
+				territory_id: territoryId,
+			}))
+		}
+	}
 }
 
 export default new AppService()

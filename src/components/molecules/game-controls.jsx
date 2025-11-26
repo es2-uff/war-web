@@ -4,8 +4,7 @@ import MoveTroops from './move-troops';
 import AttackControl from './attack-control';
 import TradeCards from './trade-cards';
 
-const GameControls = ({ availableTroops, selectedTerritory, territories, turnState, isMyTurn }) => {
-	console.log(isMyTurn, turnState);
+const GameControls = ({ availableTroops, selectedTerritory, territories, turnState, isMyTurn, handleTroopAssign }) => {
 	return (
 		<div className="mt-6">
 			<h2 className="text-white text-[1.1rem] mb-3.5">
@@ -16,6 +15,7 @@ const GameControls = ({ availableTroops, selectedTerritory, territories, turnSta
 				<>
 					{(turnState === 0 || turnState === -1) && (
 						<DistributeTroops
+							handleTroopAssign={handleTroopAssign}
 							availableTroops={availableTroops}
 							selectedTerritory={selectedTerritory}
 							territories={territories}

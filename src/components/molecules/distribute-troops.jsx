@@ -1,7 +1,8 @@
 import React from 'react';
 
-const DistributeTroops = ({ selectedTerritory, availableTroops }) => {
+const DistributeTroops = ({ selectedTerritory, availableTroops, handleTroopAssign }) => {
 
+	console.log(availableTroops);
 	return (
 		<div className="mb-4 bg-gradient-to-br from-white/12 to-white/6 rounded-[10px] border border-green-500/30 shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] overflow-hidden">
 			<div className="p-3 flex justify-between items-center">
@@ -22,13 +23,13 @@ const DistributeTroops = ({ selectedTerritory, availableTroops }) => {
 					Tropas Disponíveis: {availableTroops}
 				</div>
 				<button
-					disabled={selectedTerritory === null}
+					disabled={selectedTerritory === null || availableTroops < 1 }
 					className={`w-full p-2 rounded-lg border-none font-bold text-[0.85rem] transition-all duration-200 ${
 						selectedTerritory === null
 							? 'bg-gradient-to-br from-gray-700 to-gray-800 text-gray-500 cursor-not-allowed'
 							: 'bg-gradient-to-br from-green-600 to-green-700 text-white cursor-pointer hover:from-green-500 hover:to-green-600 hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(34,197,94,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] hover:shadow-[0_6px_16px_rgba(34,197,94,0.5),inset_0_1px_0_rgba(255,255,255,0.3)]'
 					}`}
-					onClick={() => selectedTerritory !== null && console.log('Add 1 troop to', selectedTerritory)}
+					onClick={ () => { handleTroopAssign(selectedTerritory.id) }}
 				>
 					Adicionar 1 Tropa
 				</button>

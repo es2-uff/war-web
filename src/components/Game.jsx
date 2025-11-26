@@ -52,7 +52,6 @@ const Game = () => {
 				return;
 			}
 		}
-
 		setSelectedTerritory(null);
 	};
 
@@ -62,6 +61,11 @@ const Game = () => {
 
 	const  handleMoveTroops = () => {
 		setTurnState(2)
+	};
+
+	const handleTroopAssign = async () => {
+		if (!ws.current) return;
+		await AppService.sendTroopAssign(ws.current, userId, selectedTerritory.id);
 	};
 
 	const handleFinishTurn = async (territory) => {
@@ -98,6 +102,7 @@ const Game = () => {
 				territories={territories}
 				turnState={turnState}
 				isMyTurn={currentTurn === userId}
+				handleTroopAssign={handleTroopAssign}
 			/>
 
 			<div className="relative w-9/12 h-full">

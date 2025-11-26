@@ -1,8 +1,6 @@
 import React from 'react';
 
 const TurnDeployButton = ({ handleDeployTroops, turnState }) => {
-
-	console.log(turnState);
 	return (
 		<button
 			disabled={ turnState > 0 || turnState === -1}

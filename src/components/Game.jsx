@@ -34,8 +34,6 @@ const Game = () => {
 		if (gameState != null){
 			setTerritories(getTerritories(gameState.territories));
 
-			console.log(currentTurn);
-
 			if(currentTurn != gameState.current_turn) {
 				setCurrentTurn(gameState.current_turn);
 				setTurnState(0);
@@ -53,17 +51,24 @@ const Game = () => {
 		setSelectedTerritory(null);
 	};
 
-	const  handleAttackTerritory = () => {
+	const  handleSetAttackTurnState = () => {
 		setTurnState(1)
 	};
 
-	const  handleMoveTroops = () => {
+	const  handleSetMoveTurnState = () => {
 		setTurnState(2)
 	};
 
 	const handleTroopAssign = async () => {
 		if (!ws.current) return;
+		console.log("dajdsksdj");
 		await AppService.sendTroopAssign(ws.current, userId, selectedTerritory.id);
+	};
+
+	const handleAttackTerritory = async (from, to, attackingArmies) => {
+		if (!ws.current) return;
+		console.log("attack", from, to, attackingArmies)
+		await AppService.sendAttackTerritory(ws.current, userId, from.id, to, attackingArmies);
 	};
 
 	const handleFinishTurn = async (territory) => {
@@ -95,6 +100,7 @@ const Game = () => {
 				turnState={turnState}
 				isMyTurn={currentTurn === userId}
 				handleTroopAssign={handleTroopAssign}
+				handleAttackTerritory={handleAttackTerritory}
 			/>
 
 			<div className="relative w-9/12 h-full">
@@ -106,8 +112,8 @@ const Game = () => {
 
 				<TurnControls
 					turnState={turnState}
-					handleAttackTerritory={handleAttackTerritory}
-					handleMoveTroops={handleMoveTroops}
+					handleSetAttackTurnState={handleSetAttackTurnState}
+					handleSetMoveTurnState={handleSetMoveTurnState}
 					isMyTurn={currentTurn === userId}
 					handleFinishTurn={handleFinishTurn}
 				/>

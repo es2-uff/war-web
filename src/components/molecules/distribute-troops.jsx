@@ -1,8 +1,6 @@
 import React from 'react';
 
 const DistributeTroops = ({ selectedTerritory, availableTroops, handleTroopAssign }) => {
-
-	console.log(availableTroops);
 	return (
 		<div className="mb-4 bg-gradient-to-br from-white/12 to-white/6 rounded-[10px] border border-green-500/30 shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] overflow-hidden">
 			<div className="p-3 flex justify-between items-center">

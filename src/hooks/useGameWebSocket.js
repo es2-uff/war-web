@@ -27,8 +27,6 @@ const useGameWebSocket = (roomId, userId, setGameStateFunc) => {
 			try {
 				const message = JSON.parse(event.data);
 
-				console.log(message);
-
 				if (message.type === 'update') {
 					if (isMountedRef.current) {
 						setGameStateFunc(message.gameState);

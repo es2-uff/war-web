@@ -99,6 +99,18 @@ class AppService {
 			}))
 		}
 	}
+
+	async sendAttackTerritory(ws, playerId, fromId, toId, attackingArmies) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'attack',
+				player_id: playerId,
+				from: fromId,
+				to: toId,
+				attacking_armies: attackingArmies,
+			}))
+		}
+	}
 }
 
 export default new AppService()

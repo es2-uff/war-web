@@ -4,7 +4,7 @@ import MoveTroops from './move-troops';
 import AttackControl from './attack-control';
 import TradeCards from './trade-cards';
 
-const GameControls = ({ availableTroops, selectedTerritory, territories, turnState, isMyTurn, handleTroopAssign }) => {
+const GameControls = ({ availableTroops, selectedTerritory, territories, turnState, isMyTurn, handleTroopAssign, handleAttackTerritory }) => {
 	return (
 		<div className="mt-6">
 			<h2 className="text-white text-[1.1rem] mb-3.5">
@@ -26,6 +26,7 @@ const GameControls = ({ availableTroops, selectedTerritory, territories, turnSta
 						<AttackControl
 							selectedTerritory={selectedTerritory}
 							territories={territories}
+							handleAttackTerritory={handleAttackTerritory}
 						/>
 					)}
 

@@ -28,12 +28,14 @@ const Game = () => {
 
 	const [territories, setTerritories] = useState(null);
 	const [selectedTerritory, setSelectedTerritory] = useState(null);
+	const [cardsInHand, setCardsInHand] = useState(null);
 
 	const { connected, ws } = useGameWebSocket(roomId, userId, setGameState, setGameLog);
 
 	useEffect(() => {
 		if (gameState != null){
 			setTerritories(getTerritories(gameState.territories));
+			setCardsInHand(gameState.players[userId].cards_in_hand);
 
 			if(currentTurn != gameState.current_turn) {
 				setCurrentTurn(gameState.current_turn);
@@ -72,6 +74,10 @@ const Game = () => {
 		await AppService.sendAttackTerritory(ws.current, userId, from.id, to, attackingArmies);
 	};
 
+	const handleTradeCards = async (selectedCards) => {
+		await AppService.sendCardsTrade(ws.current, userId, selectedCards[0], selectedCards[1], selectedCards[2]);
+	};
+
 	const handleFinishTurn = async (territory) => {
 		await AppService.sendFinishTurn(ws.current, userId);
 	};
@@ -102,6 +108,8 @@ const Game = () => {
 				handleTroopAssign={handleTroopAssign}
 				handleAttackTerritory={handleAttackTerritory}
 				handleTroopMove={handleTroopMove}
+				cardsInHand={cardsInHand}
+				handleTradeCards={handleTradeCards}
 			/>
 
 			<div className="relative w-9/12 h-full">

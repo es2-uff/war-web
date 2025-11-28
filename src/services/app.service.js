@@ -112,6 +112,18 @@ class AppService {
 		}
 	}
 
+	async sendCardsTrade(ws, playerId, selectedCard1, selectedCard2, selectedCard3) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'trade',
+				player_id: playerId,
+				card_1: selectedCard1,
+				card_2: selectedCard2,
+				card_3: selectedCard3,
+			}))
+		}
+	}
+
 	async sendAttackTerritory(ws, playerId, fromId, toId, attackingArmies) {
 		if (ws && ws.readyState === WebSocket.OPEN) {
 			ws.send(JSON.stringify({

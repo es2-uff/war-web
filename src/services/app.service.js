@@ -100,6 +100,18 @@ class AppService {
 		}
 	}
 
+	async sendTroopMove(ws, playerId, fromId, toId, movingArmies) {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({
+				type: 'troop_move',
+				player_id: playerId,
+				from: fromId,
+				to: toId,
+				moving_armies: movingArmies,
+			}))
+		}
+	}
+
 	async sendAttackTerritory(ws, playerId, fromId, toId, attackingArmies) {
 		if (ws && ws.readyState === WebSocket.OPEN) {
 			ws.send(JSON.stringify({

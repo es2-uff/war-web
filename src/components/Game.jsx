@@ -20,7 +20,7 @@ const Game = () => {
 	// Game States
 	const [gameState, setGameState] = useState(null);
 
-	// Turn -1: All Deploy | Turn 0: Deploy | Turn 1: Attack | Turn 2: Move | Turn 3: Finish
+	// Turn 0: Deploy | Turn 1: Attack | Turn 2: Move | Turn 3: Finish
 	const [turnState, setTurnState] = useState(0);
 
 	const [currentTurn, setCurrentTurn] = useState(null);
@@ -60,19 +60,18 @@ const Game = () => {
 	};
 
 	const handleTroopAssign = async () => {
-		if (!ws.current) return;
-		console.log("dajdsksdj");
 		await AppService.sendTroopAssign(ws.current, userId, selectedTerritory.id);
 	};
 
+	const handleTroopMove = async (from, to, movingArmies) => {
+		await AppService.sendTroopMove(ws.current, userId, from.id, to, movingArmies);
+	};
+
 	const handleAttackTerritory = async (from, to, attackingArmies) => {
-		if (!ws.current) return;
-		console.log("attack", from, to, attackingArmies)
 		await AppService.sendAttackTerritory(ws.current, userId, from.id, to, attackingArmies);
 	};
 
 	const handleFinishTurn = async (territory) => {
-		if (!ws.current) return;
 		await AppService.sendFinishTurn(ws.current, userId);
 	};
 
@@ -101,6 +100,7 @@ const Game = () => {
 				isMyTurn={currentTurn === userId}
 				handleTroopAssign={handleTroopAssign}
 				handleAttackTerritory={handleAttackTerritory}
+				handleTroopMove={handleTroopMove}
 			/>
 
 			<div className="relative w-9/12 h-full">

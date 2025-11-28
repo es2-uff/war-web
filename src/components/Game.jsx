@@ -19,6 +19,7 @@ const Game = () => {
 
 	// Game States
 	const [gameState, setGameState] = useState(null);
+	const [gameLog, setGameLog] = useState(null);
 
 	// Turn 0: Deploy | Turn 1: Attack | Turn 2: Move | Turn 3: Finish
 	const [turnState, setTurnState] = useState(0);
@@ -28,7 +29,7 @@ const Game = () => {
 	const [territories, setTerritories] = useState(null);
 	const [selectedTerritory, setSelectedTerritory] = useState(null);
 
-	const { connected, ws } = useGameWebSocket(roomId, userId, setGameState);
+	const { connected, ws } = useGameWebSocket(roomId, userId, setGameState, setGameLog);
 
 	useEffect(() => {
 		if (gameState != null){
@@ -118,7 +119,7 @@ const Game = () => {
 					handleFinishTurn={handleFinishTurn}
 				/>
 
-				<GameLog />
+				<GameLog log={gameLog}/>
 			</div>
 		</div>
 	);

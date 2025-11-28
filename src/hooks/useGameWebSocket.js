@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppService from '../services/app.service';
 
-const useGameWebSocket = (roomId, userId, setGameStateFunc) => {
+const useGameWebSocket = (roomId, userId, setGameStateFunc, setGameLogFunc) => {
 	const history = useHistory();
 	const ws = useRef(null);
 	const isMountedRef = useRef(true);
@@ -30,6 +30,7 @@ const useGameWebSocket = (roomId, userId, setGameStateFunc) => {
 				if (message.type === 'update') {
 					if (isMountedRef.current) {
 						setGameStateFunc(message.gameState);
+						setGameLogFunc(message.log);
 					}
 				} else if (message.type === 'game_started') {
 					ws.current.close();

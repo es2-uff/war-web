@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const GameLog = () => {
-	// Mock log entries - simple text lines
-	const logLines = [
-		'[14:23:15] Jogador 1 atacou Brasil a partir de Argentina',
-		'[14:23:16] Jogador 2 defendeu Brasil com sucesso',
-		'[14:23:18] Jogador 1 conquistou Brasil',
-		'[14:23:20] Jogador 1 moveu 3 tropas de Argentina para Brasil',
-		'[14:23:25] Jogador 3 distribuiu 5 tropas em China',
-		'[14:23:30] Jogador 3 atacou Índia a partir de China',
-		'[14:23:35] Jogador 2 trocou cartas e recebeu 4 tropas',
-		'[14:23:40] Jogador 1 eliminou Jogador 4 do jogo',
-	];
+const GameLog = ({ log }) => {
+	const logEndRef = useRef(null);
+
+	const formatTime = (timestamp) => {
+		const date = new Date(timestamp);
+		return date.toLocaleTimeString('pt-BR', {
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit'
+		});
+	};
+
+	const logEntries = log && Array.isArray(log) ? log : [];
+
+	useEffect(() => {
+		if (logEndRef.current) {
+			logEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [logEntries]);
 
 	return (
 		<div className="h-1/5 p-4 bg-gradient-to-b from-[rgba(20,20,30,0.95)] to-[rgba(10,10,20,0.95)] border-l-2 border-[rgba(100,150,255,0.3)] shadow-[inset_5px_0_15px_rgba(0,0,0,0.3)]">
-
-			<div className="font-mono text-sm text-gray-300 space-y-1">
-				{logLines.map((line, index) => (
-					<div key={index}>
-						{line}
-					</div>
-				))}
+			<div className="font-mono text-sm text-gray-300 space-y-1 overflow-y-auto max-h-full">
+				{logEntries.length === 0 ? (
+					<div className="text-gray-500 italic">Nenhuma ação registrada ainda...</div>
+				) : (
+					logEntries.map((entry, index) => (
+						<div key={index}>
+							{entry.timestamp && entry.message && (
+								<>
+									<span className="text-blue-400">[{formatTime(entry.timestamp)}]</span>
+									{' '}
+									<span>{entry.message}</span>
+								</>
+							)}
+						</div>
+					))
+				)}
+				<div ref={logEndRef} />
 			</div>
 		</div>
 	);

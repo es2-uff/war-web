@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { API_URL } from '../App'
 
-const ROOM_WS_URL = 'ws://localhost:8080/api/v1/rooms/ws'
-const GAME_WS_URL = 'ws://localhost:8080/api/v1/games/ws'
+const WS_PROTOCOL = import.meta.env.VITE_WS_PROTOCOL || 'ws'
+const WS_HOST = import.meta.env.VITE_WS_HOST || 'localhost:8080'
+const ROOM_WS_URL = `${WS_PROTOCOL}://${WS_HOST}/api/v1/rooms/ws`
+const GAME_WS_URL = `${WS_PROTOCOL}://${WS_HOST}/api/v1/games/ws`
 
 class AppService {
 	getCurrentUser() {
